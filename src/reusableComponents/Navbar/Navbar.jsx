@@ -15,7 +15,7 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/">Add job</NavLink>
+        <NavLink to="/add-jobs">Add job</NavLink>
       </li>
       <li>
         <NavLink to="/">My posted jobs</NavLink>
@@ -88,7 +88,7 @@ const Navbar = () => {
             </label>
             <p className="border-l-2 p-2">{user.displayName}</p>
             <button
-              className="btn btn-circle border-none bg-[#323484] text-white hover:text-[#323484]"
+              className="btn btn-circle border-none bg-[#FF7626] text-white hover:text-[#323484]"
               onClick={handleLogout}
             >
               <AiOutlineLogout className="text-2xl"></AiOutlineLogout>
