@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
+import { MdTitle, MdDescription, MdPriceChange } from "react-icons/md";
+import { BiSolidCategory } from "react-icons/bi";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -59,12 +61,12 @@ const AddJobs = () => {
           className="flex flex-col gap-4 text-left"
           onSubmit={handlePostJob}
         >
-          <h1 className="text-[#444] text-[40px] font-semibold text-center">
+          {/* <h1 className="text-[#444] text-[40px] font-semibold text-center">
             Sign UP
-          </h1>
+          </h1> */}
 
           <div className="relative">
-            <div className=" h-[48px] p-3 absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
+            <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
               <i className="fa-solid fa-envelope text-xl text-white"></i>
             </div>
             <input
@@ -80,8 +82,8 @@ const AddJobs = () => {
           </div>
 
           <div className="relative">
-            <div className=" h-[48px] p-3 absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
-              <i className="fa-solid fa-envelope text-xl text-white"></i>
+            <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
+              <MdTitle className="text-2xl text-white"></MdTitle>
             </div>
             <input
               type="text"
@@ -94,8 +96,8 @@ const AddJobs = () => {
           </div>
 
           <div className="relative">
-            <div className=" h-[48px] p-3 absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
-              <i className="fa-solid fa-envelope text-xl text-white"></i>
+            <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
+              <i className="fa-regular fa-calendar-days text-xl text-white"></i>
             </div>
             <input
               type="date"
@@ -108,8 +110,8 @@ const AddJobs = () => {
           </div>
 
           <div className="relative">
-            <div className=" h-[48px] p-3 absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
-              <i className="fa-solid fa-envelope text-xl text-white"></i>
+            <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
+              <MdDescription className="text-2xl text-white"></MdDescription>
             </div>
             <input
               type="text"
@@ -122,8 +124,8 @@ const AddJobs = () => {
           </div>
 
           <div className="relative">
-            <div className=" h-[48px] p-3 absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
-              <i className="fa-solid fa-envelope text-xl text-white"></i>
+            <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
+              <BiSolidCategory className="text-2xl text-white"></BiSolidCategory>
             </div>
             <select
               name="category"
@@ -139,8 +141,8 @@ const AddJobs = () => {
 
           <div className="flex gap-4">
             <div className="relative">
-              <div className=" h-[48px] p-3 absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
-                <i className="fa-solid fa-envelope text-xl text-white"></i>
+              <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
+                <MdPriceChange className="text-2xl text-white"></MdPriceChange>
               </div>
               <input
                 type="number"
@@ -154,8 +156,8 @@ const AddJobs = () => {
             </div>
 
             <div className="relative">
-              <div className=" h-[48px] p-3 absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
-                <i className="fa-solid fa-envelope text-xl text-white"></i>
+              <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
+                <MdPriceChange className="text-2xl text-white"></MdPriceChange>
               </div>
               <input
                 type="number"
@@ -172,7 +174,7 @@ const AddJobs = () => {
           <input
             type="submit"
             value="Add Job"
-            className="input w-full bg-[#ff5c11bb] text-white rounded-full"
+            className="input w-full bg-[#ff5c11dc] text-white rounded-full"
           />
         </form>
       </div>

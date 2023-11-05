@@ -88,7 +88,7 @@ const Navbar = () => {
             </label>
             <p className="border-l-2 p-2">{user.displayName}</p>
             <button
-              className="btn btn-circle border-none bg-[#FF7626] text-white hover:text-[#323484]"
+              className="btn btn-circle border-none bg-[#ff5c11dc] text-white hover:text-[#323484]"
               onClick={handleLogout}
             >
               <AiOutlineLogout className="text-2xl"></AiOutlineLogout>
