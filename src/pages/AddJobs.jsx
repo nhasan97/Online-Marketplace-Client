@@ -184,7 +184,7 @@ const AddJobs = () => {
           <input
             type="submit"
             value="Add Job"
-            className="input w-full bg-[#7DDDD9] text-[#2B3440] font-semibold rounded-full"
+            className="input w-full bg-[#ff5c11dc] text-white font-semibold rounded-full"
           />
         </form>
       </div>

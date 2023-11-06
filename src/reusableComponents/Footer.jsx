@@ -84,7 +84,7 @@ const Footer = () => {
 
       <footer className="footer footer-center p-10">
         <aside>
-          <p className="bg-[#ff5c11dc] p-2 rounded-full">
+          <p className="bg-[#7DDDD9] text-[#0f1216] font-semibold p-2 rounded-full">
             Copyright © 2023 - All right reserved by WorkLine.com
           </p>
         </aside>

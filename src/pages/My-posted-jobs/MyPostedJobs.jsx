@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import PostedJobCard from "./PostedJobCard";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const MyPostedJobs = () => {
   const { user } = useContext(AuthContext);
@@ -14,11 +16,47 @@ const MyPostedJobs = () => {
       });
   }, []);
 
+  const handlePostedJobDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2DD4BF",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:5000/posted-jobs/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            const newList = myPostedJobs.filter((job) => job._id !== id);
+            setMyPostedJobs(newList);
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          }
+        });
+      }
+    });
+  };
+
   return (
     <div className="w-full min-h-screen flex justify-center items-center mt-16">
       <div className="grid grid-cols-3 gap-6 py-10">
         {myPostedJobs.map((job) => (
-          <PostedJobCard key={job._id} job={job}></PostedJobCard>
+          <PostedJobCard
+            key={job._id}
+            job={job}
+            handlePostedJobDelete={handlePostedJobDelete}
+          ></PostedJobCard>
         ))}
       </div>
     </div>

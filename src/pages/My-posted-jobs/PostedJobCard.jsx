@@ -10,7 +10,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const PostedJobCard = ({ job }) => {
+const PostedJobCard = ({ job, handlePostedJobDelete }) => {
   const {
     _id,
     email,
@@ -70,7 +70,7 @@ const PostedJobCard = ({ job }) => {
       .patch(`http://localhost:5000/posted-jobs/${_id}`, jobInfo)
       .then((res) => {
         if (res.data.modifiedCount) {
-          toast.success("Inserted successfully!", toastCharacteristics);
+          toast.success("Updated successfully!", toastCharacteristics);
           form.reset();
           navigate("/my-posted-jobs");
         } else {
@@ -112,17 +112,20 @@ const PostedJobCard = ({ job }) => {
           >
             <LiaEditSolid className="text-2xl"></LiaEditSolid>
           </button>
-          <button className="btn btn-circle bg-red-500 text-white hover:text-red-500">
+          <button
+            className="btn btn-circle bg-red-500 text-white hover:text-red-500"
+            onClick={() => {
+              handlePostedJobDelete(_id);
+            }}
+          >
             <MdDeleteOutline className="text-2xl"></MdDeleteOutline>
           </button>
         </div>
       </div>
 
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
       <dialog id={_id} className="modal">
         <div className="modal-box">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
@@ -257,13 +260,9 @@ const PostedJobCard = ({ job }) => {
                 value="Update"
                 className="input w-full bg-[#7DDDD9] text-[#2B3440] font-semibold rounded-full"
               />
+              <ToastContainer />
             </form>
           </div>
-          {/* <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
-          </div> */}
         </div>
       </dialog>
     </div>
@@ -272,6 +271,7 @@ const PostedJobCard = ({ job }) => {
 
 PostedJobCard.propTypes = {
   job: PropTypes.object.isRequired,
+  handlePostedJobDelete: PropTypes.func.isRequired,
 };
 
 export default PostedJobCard;
