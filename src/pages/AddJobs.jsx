@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { MdTitle, MdDescription, MdPriceChange } from "react-icons/md";
 import { BiSolidCategory } from "react-icons/bi";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import addJobBg from "../assets/Screenshot_2023-11-06_194840-removebg-preview.png";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,16 +62,17 @@ const AddJobs = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center mt-16">
-      <div className="w-[35%] h-[400px] p-10 flex justify-center items-center bg-[#323484] border rounded-xl shadow-2xl relative">
-        <h1 className="text-white text-6xl text-center font-semibold -ml-8">
-          Add <br></br>Job
+      <div className="w-[40%] h-[420px] p-16 flex justify-center items-center bg-[#323484] border rounded-xl shadow-2xl relative">
+        <h1 className="text-white text-6xl text-center font-semibold absolute top-0 translate-y-[20%]">
+          Add Job
         </h1>
-        <AiOutlinePlusCircle className="w-[80%] h-[80%] text-[#7DDDD9] absolute r-0 translate-x-[63%]"></AiOutlinePlusCircle>
+        <img src={addJobBg} alt="" className="w-full mr-20" />
+        <AiOutlinePlusCircle className="w-[70%] h-[70%] text-[#7DDDD9] absolute r-0 translate-x-[72%]"></AiOutlinePlusCircle>
       </div>
 
-      <div className="w-[65%] px-10 py-12 border rounded-xl shadow-lg">
+      <div className="w-[60%] px-10 py-12 border rounded-xl shadow-lg">
         <form
-          className="flex flex-col gap-4 text-left pl-36"
+          className="flex flex-col gap-4 text-left pl-28"
           onSubmit={handlePostJob}
         >
           <div className="relative">
