@@ -1,14 +1,18 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import { MdTitle, MdDescription, MdPriceChange } from "react-icons/md";
 import { BiSolidCategory } from "react-icons/bi";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddJobs = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const toastCharacteristics = {
     position: "top-center",
@@ -26,28 +30,29 @@ const AddJobs = () => {
 
     const form = e.target;
 
-    const Email = form.email.value;
-    const JobTitle = form.jobTitle.value;
-    const Deadline = form.deadline.value;
-    const Description = form.description.value;
-    const Category = form.category.value;
-    const MinimumPrice = form.minimumPrice.value;
-    const MaximumPrice = form.maximumPrice.value;
+    const email = form.email.value || "Not Found";
+    const jobTitle = form.jobTitle.value || "Not Found";
+    const deadline = form.deadline.value || "Not Found";
+    const description = form.description.value || "Not Found";
+    const category = form.category.value || "Not Found";
+    const minimumPrice = form.minimumPrice.value || "Not Found";
+    const maximumPrice = form.maximumPrice.value || "Not Found";
 
     const jobInfo = {
-      Email,
-      JobTitle,
-      Deadline,
-      Description,
-      Category,
-      MinimumPrice,
-      MaximumPrice,
+      email,
+      jobTitle,
+      deadline,
+      description,
+      category,
+      minimumPrice,
+      maximumPrice,
     };
 
     axios.post("http://localhost:5000/posted-jobs", jobInfo).then((res) => {
       if (res.data.insertedId) {
         toast.success("Inserted successfully!", toastCharacteristics);
         form.reset();
+        navigate("/my-posted-jobs");
       } else {
         toast.error("Something went wrong!", toastCharacteristics);
       }
@@ -55,16 +60,19 @@ const AddJobs = () => {
   };
 
   return (
-    <div className="w-full h-screen flex justify-center items-center pt-20">
-      <div className="w-1/2 border rounded-lg px-10">
+    <div className="w-full h-screen flex justify-center items-center mt-16">
+      <div className="w-[35%] h-[400px] p-10 flex justify-center items-center bg-[#323484] border rounded-xl shadow-2xl relative">
+        <h1 className="text-white text-6xl text-center font-semibold -ml-8">
+          Add <br></br>Job
+        </h1>
+        <AiOutlinePlusCircle className="w-[80%] h-[80%] text-[#7DDDD9] absolute r-0 translate-x-[63%]"></AiOutlinePlusCircle>
+      </div>
+
+      <div className="w-[65%] px-10 py-12 border rounded-xl shadow-lg">
         <form
-          className="flex flex-col gap-4 text-left"
+          className="flex flex-col gap-4 text-left pl-36"
           onSubmit={handlePostJob}
         >
-          {/* <h1 className="text-[#444] text-[40px] font-semibold text-center">
-            Sign UP
-          </h1> */}
-
           <div className="relative">
             <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#323384b7] rounded-s-full">
               <i className="fa-solid fa-envelope text-xl text-white"></i>
@@ -174,7 +182,7 @@ const AddJobs = () => {
           <input
             type="submit"
             value="Add Job"
-            className="input w-full bg-[#ff5c11dc] text-white rounded-full"
+            className="input w-full bg-[#7DDDD9] text-[#2B3440] font-semibold rounded-full"
           />
         </form>
       </div>
