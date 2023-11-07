@@ -30,6 +30,7 @@
     background: #fff;
     color: #323484;
     border-radius: 9999px;
+    transition: .3s ease-in-out;
 }
 
 

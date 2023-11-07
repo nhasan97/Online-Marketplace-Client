@@ -12,23 +12,13 @@ const Navbar = () => {
   // console.log(user);
 
   const links = (
-    <>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/add-jobs">Add job</NavLink>
-      </li>
-      <li>
-        <NavLink to="/my-posted-jobs">My posted jobs</NavLink>
-      </li>
-      <li>
-        <NavLink to="/">My Bids</NavLink>
-      </li>
-      <li>
-        <NavLink to="/">Bid Requests</NavLink>
-      </li>
-    </>
+    <div className="text-[#757575] text-base font-medium space-x-8">
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/add-jobs">Add job</NavLink>
+      <NavLink to="/my-posted-jobs">My posted jobs</NavLink>{" "}
+      <NavLink to="/">My Bids</NavLink>
+      <NavLink to="/">Bid Requests</NavLink>{" "}
+    </div>
   );
 
   const handleLogout = () => {

@@ -63,47 +63,49 @@ const BrowseByCategorySection = () => {
   }, [postedJobs]);
   console.log(webDevelopmentJobs);
   return (
-    <div>
-      <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-        <TabList>
-          <div className="w-1/2 mx-auto flex justify-center items-center gap-6 bg-[#a1dada41] rounded-full p-3">
-            {categories.map((category) => (
-              <Tab key={category}>{category}</Tab>
-            ))}
-          </div>
-        </TabList>
+    <div className="">
+      <div className="py-10">
+        <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+          <TabList>
+            <div className="w-1/2 mx-auto flex justify-center items-center gap-6 bg-[#a1dada41] rounded-full p-3">
+              {categories.map((category) => (
+                <Tab key={category}>{category}</Tab>
+              ))}
+            </div>
+          </TabList>
 
-        <TabPanel>
-          <div className="grid grid-cols-3 gap-6 py-10">
-            {webDevelopmentJobs.map((job) => (
-              <BrowseByCategoryCard
-                key={job._id}
-                job={job}
-              ></BrowseByCategoryCard>
-            ))}
-          </div>
-        </TabPanel>
-        <TabPanel>
-          <div className="grid grid-cols-3 gap-6 py-10">
-            {digitalMarketingJobs.map((job) => (
-              <BrowseByCategoryCard
-                key={job._id}
-                job={job}
-              ></BrowseByCategoryCard>
-            ))}
-          </div>
-        </TabPanel>
-        <TabPanel>
-          <div className="grid grid-cols-3 gap-6 py-10">
-            {graphicDesignJobs.map((job) => (
-              <BrowseByCategoryCard
-                key={job._id}
-                job={job}
-              ></BrowseByCategoryCard>
-            ))}
-          </div>
-        </TabPanel>
-      </Tabs>
+          <TabPanel>
+            <div className="grid grid-cols-3 gap-6 py-10">
+              {webDevelopmentJobs.map((job) => (
+                <BrowseByCategoryCard
+                  key={job._id}
+                  job={job}
+                ></BrowseByCategoryCard>
+              ))}
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div className="grid grid-cols-3 gap-6 py-10">
+              {digitalMarketingJobs.map((job) => (
+                <BrowseByCategoryCard
+                  key={job._id}
+                  job={job}
+                ></BrowseByCategoryCard>
+              ))}
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div className="grid grid-cols-3 gap-6 py-10">
+              {graphicDesignJobs.map((job) => (
+                <BrowseByCategoryCard
+                  key={job._id}
+                  job={job}
+                ></BrowseByCategoryCard>
+              ))}
+            </div>
+          </TabPanel>
+        </Tabs>
+      </div>
     </div>
   );
 };

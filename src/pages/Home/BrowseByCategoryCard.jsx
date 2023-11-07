@@ -14,27 +14,25 @@ const BrowseByCategoryCard = ({ job }) => {
     maximumPrice,
   } = job;
   return (
-    <div className="card bg-base-100 transition duration-150 ease-in-out border-2 hover:shadow-lg hover:shadow-[#2B3440] ">
-      <div className="card-body p-8 space-y-4">
+    <div className="card bg-base-100 transition duration-150 ease-in-out border hover:shadow-lg ">
+      <div className="card-body p-8 space-y-2">
         <h2 className="card-title text-[#323484] text-3xl font-bold rounded-full">
           {jobTitle}
         </h2>
-
-        {/* <p className="badge p-3 text-[#ff5c11dc] font-semibold border border-[#ff5c11dc]">
-          {category}
-        </p> */}
 
         <p className="text-lg text-[#72ccc6] font-medium">
           Deadline | {deadline}
         </p>
 
         <div className="flex gap-2">
-          <p className="p-3 bg-[#323384b7] rounded-lg text-base text-[#e8ebfa] font-medium">
-            Min-Price | <span className="text-xl">${minimumPrice}</span>
+          <p className="rounded-lg text-base text-[#323384b7] font-medium">
+            <span className="text-xl">
+              ${minimumPrice} - ${maximumPrice}
+            </span>
           </p>
-          <p className="p-3 bg-[#323384b7] rounded-lg text-base text-[#e8ebfa] font-medium">
-            Max-Price | <span className="text-xl">${maximumPrice}</span>
-          </p>
+          {/* <p className="p-3 bg-[#323384b7] rounded-lg text-base text-[#e8ebfa] font-medium">
+           <span className="text-xl"></span>
+          </p> */}
         </div>
 
         <p className="text-[#6f6f77] text-base">{description}</p>
