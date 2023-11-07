@@ -49,15 +49,17 @@ const MyPostedJobs = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center mt-16">
-      <div className="grid grid-cols-3 gap-6 py-10">
-        {myPostedJobs.map((job) => (
-          <PostedJobCard
-            key={job._id}
-            job={job}
-            handlePostedJobDelete={handlePostedJobDelete}
-          ></PostedJobCard>
-        ))}
+    <div className="max-w-screen-xl mx-auto px-20">
+      <div className="w-full min-h-screen flex justify-center items-center mt-16">
+        <div className="grid grid-cols-3 gap-6 py-10">
+          {myPostedJobs.map((job) => (
+            <PostedJobCard
+              key={job._id}
+              job={job}
+              handlePostedJobDelete={handlePostedJobDelete}
+            ></PostedJobCard>
+          ))}
+        </div>
       </div>
     </div>
   );

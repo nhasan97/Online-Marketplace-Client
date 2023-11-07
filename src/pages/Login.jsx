@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../providers/AuthProvider";
+
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import loginBg from "../assets/undraw_Login_re_4vu2.png";
 
 const Login = () => {

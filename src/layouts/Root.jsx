@@ -8,9 +8,9 @@ const Root = () => {
       <div className="flex justify-center relative">
         <Navbar></Navbar>
       </div>
-      <div className="max-w-screen-xl mx-auto px-20">
-        <Outlet></Outlet>
-      </div>
+      {/* <div className="max-w-screen-xl mx-auto px-20"> */}
+      <Outlet></Outlet>
+      {/* </div> */}
       <Footer></Footer>
     </div>
   );
