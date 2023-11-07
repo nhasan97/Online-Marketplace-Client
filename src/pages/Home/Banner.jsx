@@ -7,8 +7,8 @@ const Banner = () => {
       <img
         src={pic1}
         alt=""
-        className="w-1/4 absolute bottom-0 left-10"
-        data-aos="fade-up-right"
+        className="w-1/4 absolute bottom-20 left-10"
+        data-aos="fade-right"
         data-aos-delay="50"
         data-aos-duration="1000"
         data-aos-easing="ease-in-out"
@@ -41,7 +41,7 @@ const Banner = () => {
       <img
         src={pic2}
         alt=""
-        className="w-1/4 absolute top-10 right-10"
+        className="w-1/4 absolute top-20 right-24"
         data-aos="fade-down-left"
         data-aos-delay="50"
         data-aos-duration="1000"

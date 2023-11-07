@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 import "./Navbar.css";
+import logo from "../../assets/logodark.png";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, NavLink } from "react-router-dom";
 import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
@@ -65,7 +66,10 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <a className="text-xl">
+          <img src={logo} alt="" className="w-[30%]" />
+          <span> | WorkLine</span>
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>

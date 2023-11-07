@@ -1,8 +1,11 @@
 import { LiaEditSolid } from "react-icons/lia";
 import { MdDeleteOutline } from "react-icons/md";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const BrowseByCategoryCard = ({ job }) => {
+  const { user } = useContext(AuthContext);
   const {
     _id,
     email,
@@ -38,12 +41,23 @@ const BrowseByCategoryCard = ({ job }) => {
         <p className="text-[#6f6f77] text-base">{description}</p>
 
         <div className="flex justify-end items-center gap-2">
-          <button
-            className="btn w-full bg-[#ff5c11dc] text-white hover:text-[#7DDDD9]"
-            onClick={() => document.getElementById(_id).showModal()}
-          >
-            Bid Now
-          </button>
+          {user?.email === email ? (
+            <button
+              disabled
+              className="btn w-full"
+              onClick={() => document.getElementById(_id).showModal()}
+            >
+              Bid Now
+            </button>
+          ) : (
+            <button
+              className="btn w-full bg-[#ff5c11dc] text-white hover:text-[#7DDDD9]"
+              onClick={() => document.getElementById(_id).showModal()}
+            >
+              Bid Now
+            </button>
+          )}
+
           {/* <button
             className="btn btn-circle bg-[#7DDDD9] text-white hover:text-[#7DDDD9]"
             onClick={() => document.getElementById(_id).showModal()}
