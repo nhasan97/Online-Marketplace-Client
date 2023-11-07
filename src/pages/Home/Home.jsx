@@ -1,5 +1,5 @@
 import Banner from "./Banner";
-import BrowseByCategorySection from "./BrowseByCategorySection";
+import BrowseByCategorySection from "./BrowseByCategorySection/BrowseByCategorySection";
 
 const Home = () => {
   return (

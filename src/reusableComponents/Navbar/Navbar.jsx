@@ -93,13 +93,13 @@ const Navbar = () => {
         ) : (
           <div className="flex justify-center items-center gap-2">
             <Link
-              className="btn border-none bg-[#323484] text-white hover:text-[#323484]"
+              className="btn border-none bg-[#ff5c11dc] text-white hover:text-[#323484]"
               to="/login"
             >
               <AiOutlineLogin className="text-2xl"></AiOutlineLogin>
             </Link>
             <Link
-              className="btn border-none bg-[#323484] text-white hover:text-[#323484]"
+              className="btn border-none bg-[#ff5c11dc] text-white hover:text-[#323484]"
               to="/register"
             >
               Register

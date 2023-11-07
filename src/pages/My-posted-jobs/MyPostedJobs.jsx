@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import PostedJobCard from "./PostedJobCard";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Title from "../../reusableComponents/Title";
 
 const MyPostedJobs = () => {
   const { user } = useContext(AuthContext);
@@ -48,9 +49,13 @@ const MyPostedJobs = () => {
     });
   };
 
+  const title = "My Posted Jobs";
+
   return (
     <div className="max-w-screen-xl mx-auto px-20">
-      <div className="w-full min-h-screen flex justify-center items-center mt-16">
+      <div className="w-full min-h-screen flex flex-col justify-center items-center mt-24">
+        <Title title={title}></Title>
+
         <div className="grid grid-cols-3 gap-6 py-10">
           {myPostedJobs.map((job) => (
             <PostedJobCard

@@ -233,6 +233,7 @@ const PostedJobCard = ({ job, handlePostedJobDelete }) => {
                     placeholder="Min-price"
                     defaultValue={minimumPrice}
                     step="0.01"
+                    min="1"
                     required
                     className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
                   />
@@ -249,6 +250,7 @@ const PostedJobCard = ({ job, handlePostedJobDelete }) => {
                     placeholder="Max-price"
                     defaultValue={maximumPrice}
                     step="0.01"
+                    min="1"
                     required
                     className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
                   />

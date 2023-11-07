@@ -3,8 +3,11 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // import "react-tabs/style/react-tabs.css";
 import "./Tabs.css";
 import BrowseByCategoryCard from "./BrowseByCategoryCard";
+import Title from "../../../reusableComponents/Title";
 
 const BrowseByCategorySection = () => {
+  const title = "Browse By Category";
+
   const [tabIndex, setTabIndex] = useState(0);
   const categories = ["Web Development", "Digital Marketing", "Graphic Design"];
 
@@ -63,7 +66,9 @@ const BrowseByCategorySection = () => {
   }, [postedJobs]);
   console.log(webDevelopmentJobs);
   return (
-    <div className="">
+    <div className="py-10">
+      <Title title={title}></Title>
+
       <div className="py-10">
         <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
           <TabList>

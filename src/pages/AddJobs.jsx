@@ -161,6 +161,7 @@ const AddJobs = () => {
                   name="minimumPrice"
                   placeholder="Minimum price"
                   step="0.01"
+                  min="1"
                   required
                   className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
                 />
@@ -176,6 +177,7 @@ const AddJobs = () => {
                   name="maximumPrice"
                   placeholder="Maximum price"
                   step="0.01"
+                  min="1"
                   required
                   className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
                 />

@@ -42,11 +42,11 @@ const Banner = () => {
         src={pic2}
         alt=""
         className="w-1/4 absolute top-20 right-24"
-        data-aos="fade-down-left"
-        data-aos-delay="50"
-        data-aos-duration="1000"
-        data-aos-easing="ease-in-out"
-        data-aos-mirror="true"
+        // data-aos="fade-down-left"
+        // data-aos-delay="50"
+        // data-aos-duration="1000"
+        // data-aos-easing="ease-in-out"
+        // data-aos-mirror="true"
       />
     </div>
   );

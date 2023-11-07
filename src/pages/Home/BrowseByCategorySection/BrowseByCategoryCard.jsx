@@ -2,7 +2,7 @@ import { LiaEditSolid } from "react-icons/lia";
 import { MdDeleteOutline } from "react-icons/md";
 import PropTypes from "prop-types";
 import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const BrowseByCategoryCard = ({ job }) => {
   const { user } = useContext(AuthContext);
