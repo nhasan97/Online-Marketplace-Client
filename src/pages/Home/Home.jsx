@@ -11,5 +11,5 @@ const Home = () => {
     </div>
   );
 };
-// flex justify-center items-center w-full min-h-screen mt-16
+//  w-full min-h-screen mt-16
 export default Home;

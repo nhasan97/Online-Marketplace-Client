@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+
+import "./Navbar.css";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, NavLink } from "react-router-dom";
 import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
