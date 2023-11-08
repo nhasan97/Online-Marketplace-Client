@@ -4,6 +4,7 @@ import axios from "axios";
 import Title from "../reusableComponents/Title";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 const MyBids = () => {
   const title = "My bids";
@@ -52,6 +53,10 @@ const MyBids = () => {
   if (bids.length > 0) {
     return (
       <div className="max-w-screen-xl mx-auto px-20">
+        <Helmet>
+          <title>Work Line | My Bids</title>
+          <link rel="canonical" href="https://www.tacobell.com/" />
+        </Helmet>
         <div className="w-full flex flex-col justify-center items-center p-10 mt-16">
           <div className="mb-6">
             <Title title={title}></Title>

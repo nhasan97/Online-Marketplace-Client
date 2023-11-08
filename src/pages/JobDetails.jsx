@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useCurrentDate from "../customHooks/UseCurrentDate";
 import dateComparer from "../utilities/dateComparer";
+import { Helmet } from "react-helmet-async";
 
 const JobDetails = () => {
   const title1 = "Job Details";
@@ -85,6 +86,10 @@ const JobDetails = () => {
   };
   return (
     <div className="max-w-screen-xl mx-auto px-20">
+      <Helmet>
+        <title>Work Line | Job Details</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="w-full min-h-screen flex justify-center items-center pb-10 mt-16">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">

@@ -4,6 +4,7 @@ import PostedJobCard from "./PostedJobCard";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Title from "../../reusableComponents/Title";
+import { Helmet } from "react-helmet-async";
 
 const MyPostedJobs = () => {
   const { user } = useContext(AuthContext);
@@ -54,6 +55,10 @@ const MyPostedJobs = () => {
   if (myPostedJobs.length > 0) {
     return (
       <div className="max-w-screen-xl mx-auto px-20">
+        <Helmet>
+          <title>Work Line | My Posted Jobs</title>
+          <link rel="canonical" href="https://www.tacobell.com/" />
+        </Helmet>
         <div className="w-full min-h-screen flex flex-col justify-center items-center mt-24">
           <Title title={title}></Title>
 

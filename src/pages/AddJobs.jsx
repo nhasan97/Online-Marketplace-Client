@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import useCurrentDate from "../customHooks/UseCurrentDate";
 import dateComparer from "../utilities/dateComparer";
+import { Helmet } from "react-helmet-async";
 
 const AddJobs = () => {
   const { user } = useContext(AuthContext);
@@ -82,6 +83,10 @@ const AddJobs = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-20">
+      <Helmet>
+        <title>Work Line | Add Job</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="w-full h-screen flex justify-center items-center mt-16">
         <div className="w-[40%] h-[420px] p-16 flex justify-center items-center bg-[#323484] border rounded-xl shadow-2xl relative">
           <h1 className="text-white text-6xl text-center font-semibold absolute top-0 translate-y-[20%]">

@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "react-step-progress-bar/styles.css";
 import { ProgressBar } from "react-step-progress-bar";
+import { Helmet } from "react-helmet-async";
 
 const BidRequests = () => {
   const title = "Bid Requests";
@@ -54,6 +55,10 @@ const BidRequests = () => {
   if (bids.length > 0) {
     return (
       <div className="max-w-screen-xl mx-auto px-20">
+        <Helmet>
+          <title>Work Line | Bid Requests</title>
+          <link rel="canonical" href="https://www.tacobell.com/" />
+        </Helmet>
         <div className="w-full flex flex-col justify-center items-center p-10 mt-16">
           <div className="mb-6">
             <Title title={title}></Title>
@@ -106,14 +111,14 @@ const BidRequests = () => {
                         <div className="w-[150px]">
                           <ProgressBar
                             percent={50}
-                            filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+                            filledBackground="linear-gradient(to right, #ff5c11dc, #323484)"
                           />
                         </div>
                       ) : bid.status === "Complete" ? (
                         <div className="w-[150px]">
                           <ProgressBar
                             percent={100}
-                            filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+                            filledBackground="linear-gradient(to right,  #ff5c11dc, #323484)"
                           />
                         </div>
                       ) : (
