@@ -73,15 +73,20 @@ const JobDetails = () => {
         toastCharacteristics
       );
     } else {
-      axios.post("http://localhost:5000/bids", bidInfo).then((res) => {
-        if (res.data.insertedId) {
-          toast.success("Inserted successfully!", toastCharacteristics);
-          form.reset();
-          navigate("/my-bids");
-        } else {
-          toast.error("Something went wrong!", toastCharacteristics);
-        }
-      });
+      axios
+        .post(
+          "https://b8-a11-online-marketplace-server.vercel.app/bids",
+          bidInfo
+        )
+        .then((res) => {
+          if (res.data.insertedId) {
+            toast.success("Inserted successfully!", toastCharacteristics);
+            form.reset();
+            navigate("/my-bids");
+          } else {
+            toast.error("Something went wrong!", toastCharacteristics);
+          }
+        });
     }
   };
   return (

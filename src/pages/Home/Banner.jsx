@@ -8,11 +8,11 @@ const Banner = () => {
         src={pic1}
         alt=""
         className="w-1/4 absolute bottom-20 left-10"
-        data-aos="fade-right"
-        data-aos-delay="50"
-        data-aos-duration="1000"
-        data-aos-easing="ease-in-out"
-        data-aos-mirror="true"
+        // data-aos="fade-right"
+        // data-aos-delay="50"
+        // data-aos-duration="1000"
+        // data-aos-easing="ease-in-out"
+        // data-aos-mirror="true"
       />
       <div
         className="flex flex-col justify-center items-center gap-6"

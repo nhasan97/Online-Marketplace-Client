@@ -18,7 +18,7 @@ const BrowseByCategorySection = () => {
   //   const [categoryWiseJobs, setCategoryWiseJobs] = useState([]);
   //   useEffect(() => {
   //     for (let category of categories) {
-  //       fetch(`http://localhost:5000/jobs/${category}`)
+  //       fetch(`https://b8-a11-online-marketplace-server.vercel.app/jobs/${category}`)
   //         .then((res) => res.json())
   //         .then((data) => {
   //           const cwd = {
@@ -36,7 +36,7 @@ const BrowseByCategorySection = () => {
   const [postedJobs, setPostedJobs] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/posted-jobs`)
+    fetch(`https://b8-a11-online-marketplace-server.vercel.app/posted-jobs`)
       .then((res) => res.json())
       .then((data) => {
         setPostedJobs(data);

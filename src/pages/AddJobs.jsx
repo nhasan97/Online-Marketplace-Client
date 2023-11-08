@@ -69,15 +69,20 @@ const AddJobs = () => {
         text: "Please enter a valid price range!",
       });
     } else {
-      axios.post("http://localhost:5000/posted-jobs", jobInfo).then((res) => {
-        if (res.data.insertedId) {
-          toast.success("Inserted successfully!", toastCharacteristics);
-          form.reset();
-          navigate("/my-posted-jobs");
-        } else {
-          toast.error("Something went wrong!", toastCharacteristics);
-        }
-      });
+      axios
+        .post(
+          "https://b8-a11-online-marketplace-server.vercel.app/posted-jobs",
+          jobInfo
+        )
+        .then((res) => {
+          if (res.data.insertedId) {
+            toast.success("Inserted successfully!", toastCharacteristics);
+            form.reset();
+            navigate("/my-posted-jobs");
+          } else {
+            toast.error("Something went wrong!", toastCharacteristics);
+          }
+        });
     }
   };
 

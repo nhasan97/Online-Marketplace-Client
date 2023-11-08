@@ -78,7 +78,10 @@ const PostedJobCard = ({ job, handlePostedJobDelete }) => {
       toast.error("Please enter a valid price range!", toastCharacteristics);
     } else {
       axios
-        .patch(`http://localhost:5000/posted-jobs/${_id}`, jobInfo)
+        .patch(
+          `https://b8-a11-online-marketplace-server.vercel.app/posted-jobs/${_id}`,
+          jobInfo
+        )
         .then((res) => {
           if (res.data.modifiedCount) {
             toast.success("Updated successfully!", toastCharacteristics);

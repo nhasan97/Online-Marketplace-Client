@@ -88,7 +88,7 @@ const Login = () => {
                 type="email"
                 id="in1"
                 name="email"
-                placeholder="Type Here"
+                placeholder="Email"
                 required
                 className="input bg-[#a1dada41] w-full pl-16 rounded-full border focus:border-[#7DDDD9] focus:outline-none"
               />
@@ -102,7 +102,7 @@ const Login = () => {
                 type={showPass ? "text" : "password"}
                 id="in2"
                 name="pass"
-                placeholder="Type Here"
+                placeholder="Password"
                 required
                 className="input bg-[#a1dada41] w-full pl-16 rounded-full border focus:border-[#7DDDD9] focus:outline-none"
               />

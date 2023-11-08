@@ -45,7 +45,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/jobs/${params.id}`),
+          fetch(
+            `https://b8-a11-online-marketplace-server.vercel.app/jobs/${params.id}`
+          ),
       },
       {
         path: "/my-bids",

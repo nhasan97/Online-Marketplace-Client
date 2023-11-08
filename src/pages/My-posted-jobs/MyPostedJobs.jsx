@@ -11,9 +11,12 @@ const MyPostedJobs = () => {
   const [myPostedJobs, setMyPostedJobs] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/my-posted-jobs?email=${user?.email}`, {
-      credentials: "include",
-    })
+    fetch(
+      `https://b8-a11-online-marketplace-server.vercel.app/my-posted-jobs?email=${user?.email}`,
+      {
+        credentials: "include",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setMyPostedJobs(data);
@@ -31,23 +34,27 @@ const MyPostedJobs = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/posted-jobs/${id}`).then((res) => {
-          if (res.data.deletedCount) {
-            const newList = myPostedJobs.filter((job) => job._id !== id);
-            setMyPostedJobs(newList);
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-            });
-          }
-        });
+        axios
+          .delete(
+            `https://b8-a11-online-marketplace-server.vercel.app/posted-jobs/${id}`
+          )
+          .then((res) => {
+            if (res.data.deletedCount) {
+              const newList = myPostedJobs.filter((job) => job._id !== id);
+              setMyPostedJobs(newList);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
+            }
+          });
       }
     });
   };

@@ -25,18 +25,21 @@ const BidRequests = () => {
     theme: "dark",
   };
 
-  const url = `http://localhost:5000/bid-requests?email=${user?.email}`;
+  const url = `https://b8-a11-online-marketplace-server.vercel.app/bid-requests?email=${user?.email}`;
 
   useEffect(() => {
     axios.get(url, { withCredentials: true }).then((res) => setBids(res.data));
   }, [url]);
 
   const handleAcceptOrReject = (bidId, stat) => {
-    fetch(`http://localhost:5000/bid-requests/${bidId}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ status: stat }),
-    })
+    fetch(
+      `https://b8-a11-online-marketplace-server.vercel.app/bid-requests/${bidId}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status: stat }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {

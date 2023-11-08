@@ -1,0 +1,73 @@
+[
+  {
+    "id": "1",
+    "image": "https://pasteboard.co/G7sVyRoAhcth.jpg",
+    "name": "John Doe",
+    "clientDesignation": "Software Engineer",
+    "say": "Great service, highly recommended!"
+  },
+  {
+    "id": "2",
+    "image": "https://pasteboard.co/VfFktlpZ3Zh1.jpg",
+    "name": "Jane Smith",
+    "clientDesignation": "Product Manager",
+    "say": "Excellent work, very satisfied!"
+  },
+  {
+    "id": "3",
+    "image": "https://pasteboard.co/azzINujDceFe.jpg",
+    "name": "Robert Johnson",
+    "clientDesignation": "Data Analyst",
+    "say": "Impressive work, will use again!"
+  },
+  {
+    "id": "4",
+    "image": "image4.jpg",
+    "name": "Maria Garcia",
+    "clientDesignation": "UX Designer",
+    "say": "Very professional, top-notch quality!"
+  },
+
+  {
+    "id": "5",
+    "image": "image5.jpg",
+    "name": "James Williams",
+    "clientDesignation": "Web Developer",
+    "say": "Fantastic job, exceeded expectations!"
+  },
+  {
+    "id": "6",
+    "image": "image6.jpg",
+    "name": "Jennifer Brown",
+    "clientDesignation": "QA Tester",
+    "say": "Reliable and efficient, highly appreciated!"
+  },
+  {
+    "id": "7",
+    "image": "image7.jpg",
+    "name": "Michael Davis",
+    "clientDesignation": "DevOps Engineer",
+    "say": "Exceptional service, will definitely recommend!"
+  },
+  {
+    "id": "8",
+    "image": "image8.jpg",
+    "name": "Elizabeth Miller",
+    "clientDesignation": "System Architect",
+    "say": "Outstanding work, very pleased!"
+  },
+  {
+    "id": "9",
+    "image": "image9.jpg",
+    "name": "William Wilson",
+    "clientDesignation": "Database Administrator",
+    "say": "Top quality work, very professional!"
+  },
+  {
+    "id": "10",
+    "image": "image10.jpg",
+    "name": "Patricia Moore",
+    "clientDesignation": "Network Engineer",
+    "say": "Excellent service, very satisfied!"
+  }
+]

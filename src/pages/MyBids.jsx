@@ -25,18 +25,24 @@ const MyBids = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/bids?email=${user?.email}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://b8-a11-online-marketplace-server.vercel.app/bids?email=${user?.email}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => setBids(res.data));
   }, []);
 
   const handleComplete = (bidId, stat) => {
-    fetch(`http://localhost:5000/bid-requests/${bidId}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ status: stat }),
-    })
+    fetch(
+      `https://b8-a11-online-marketplace-server.vercel.app/bid-requests/${bidId}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status: stat }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {
