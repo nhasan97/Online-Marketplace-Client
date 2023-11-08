@@ -51,23 +51,33 @@ const MyPostedJobs = () => {
 
   const title = "My Posted Jobs";
 
-  return (
-    <div className="max-w-screen-xl mx-auto px-20">
-      <div className="w-full min-h-screen flex flex-col justify-center items-center mt-24">
-        <Title title={title}></Title>
+  if (myPostedJobs.length > 0) {
+    return (
+      <div className="max-w-screen-xl mx-auto px-20">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center mt-24">
+          <Title title={title}></Title>
 
-        <div className="grid grid-cols-3 gap-6 py-10">
-          {myPostedJobs.map((job) => (
-            <PostedJobCard
-              key={job._id}
-              job={job}
-              handlePostedJobDelete={handlePostedJobDelete}
-            ></PostedJobCard>
-          ))}
+          <div className="grid grid-cols-3 gap-6 py-10">
+            {myPostedJobs.map((job) => (
+              <PostedJobCard
+                key={job._id}
+                job={job}
+                handlePostedJobDelete={handlePostedJobDelete}
+              ></PostedJobCard>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="max-w-screen-xl mx-auto px-20">
+        <div className="w-full h-screen flex flex-col justify-center items-center p-10 mt-16">
+          <h1 className="text-6xl font-semibold">No Posted Jobs Found</h1>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default MyPostedJobs;

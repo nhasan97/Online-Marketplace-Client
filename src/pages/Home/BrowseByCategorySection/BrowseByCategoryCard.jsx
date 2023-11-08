@@ -3,6 +3,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const BrowseByCategoryCard = ({ job }) => {
   const { user } = useContext(AuthContext);
@@ -33,40 +34,23 @@ const BrowseByCategoryCard = ({ job }) => {
               ${minimumPrice} - ${maximumPrice}
             </span>
           </p>
-          {/* <p className="p-3 bg-[#323384b7] rounded-lg text-base text-[#e8ebfa] font-medium">
-           <span className="text-xl"></span>
-          </p> */}
         </div>
 
         <p className="text-[#6f6f77] text-base">{description}</p>
 
         <div className="flex justify-end items-center gap-2">
           {user?.email === email ? (
-            <button
-              disabled
-              className="btn w-full"
-              onClick={() => document.getElementById(_id).showModal()}
-            >
+            <button disabled className="btn w-full">
               Bid Now
             </button>
           ) : (
-            <button
+            <Link
+              to={`/job-details/${_id}`}
               className="btn w-full bg-[#ff5c11dc] text-white hover:text-[#7DDDD9]"
-              onClick={() => document.getElementById(_id).showModal()}
             >
               Bid Now
-            </button>
+            </Link>
           )}
-
-          {/* <button
-            className="btn btn-circle bg-[#7DDDD9] text-white hover:text-[#7DDDD9]"
-            onClick={() => document.getElementById(_id).showModal()}
-          >
-            <LiaEditSolid className="text-2xl"></LiaEditSolid>
-          </button>
-          <button className="btn btn-circle bg-red-500 text-white hover:text-red-500">
-            <MdDeleteOutline className="text-2xl"></MdDeleteOutline>
-          </button> */}
         </div>
       </div>
     </div>

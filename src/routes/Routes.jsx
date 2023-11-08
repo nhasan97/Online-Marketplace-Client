@@ -7,22 +7,19 @@ import AddJobs from "../pages/AddJobs";
 import MyPostedJobs from "../pages/My-posted-jobs/MyPostedJobs";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../pages/Error";
+import JobDetails from "../pages/JobDetails";
+import MyBids from "../pages/MyBids";
+import BidRequests from "../pages/BidRequests";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <Error></Error>,
     children: [
-      // My bids page
-      // x Add job page
-      // x My posted jobs
-      // ○ Bid Request page
-      // ○ Job detail page
-
       {
         path: "/",
         element: <Home></Home>,
-        errorElement: <Error></Error>,
       },
       {
         path: "/add-jobs",
@@ -31,7 +28,6 @@ const router = createBrowserRouter([
             <AddJobs></AddJobs>
           </PrivateRoute>
         ),
-        errorElement: <Error></Error>,
       },
       {
         path: "/my-posted-jobs",
@@ -40,17 +36,40 @@ const router = createBrowserRouter([
             <MyPostedJobs></MyPostedJobs>
           </PrivateRoute>
         ),
-        errorElement: <Error></Error>,
+      },
+      {
+        path: "/job-details/:id",
+        element: (
+          <PrivateRoute>
+            <JobDetails></JobDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/jobs/${params.id}`),
+      },
+      {
+        path: "/my-bids",
+        element: (
+          <PrivateRoute>
+            <MyBids></MyBids>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/bid-requests",
+        element: (
+          <PrivateRoute>
+            <BidRequests></BidRequests>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/register",
         element: <Registration></Registration>,
-        errorElement: <Error></Error>,
       },
       {
         path: "/login",
         element: <Login></Login>,
-        errorElement: <Error></Error>,
       },
     ],
   },
