@@ -9,6 +9,8 @@ import { BiSolidCategory } from "react-icons/bi";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useCurrentDate from "../../customHooks/UseCurrentDate";
+import dateComparer from "../../utilities/dateComparer";
 
 const PostedJobCard = ({ job, handlePostedJobDelete }) => {
   const {
@@ -32,6 +34,8 @@ const PostedJobCard = ({ job, handlePostedJobDelete }) => {
   //     }
   //   };
   const navigate = useNavigate();
+  const today = useCurrentDate();
+
   const toastCharacteristics = {
     position: "top-center",
     autoClose: 5000,
@@ -66,17 +70,25 @@ const PostedJobCard = ({ job, handlePostedJobDelete }) => {
       maximumPrice,
     };
 
-    axios
-      .patch(`http://localhost:5000/posted-jobs/${_id}`, jobInfo)
-      .then((res) => {
-        if (res.data.modifiedCount) {
-          toast.success("Updated successfully!", toastCharacteristics);
-          form.reset();
-          navigate("/my-posted-jobs");
-        } else {
-          toast.error("Something went wrong!", toastCharacteristics);
-        }
-      });
+    const dateValidity = dateComparer(today, deadline);
+
+    if (dateValidity === "invalid") {
+      toast.error("Please enter a valid date!", toastCharacteristics);
+    } else if (maximumPrice - minimumPrice <= 0) {
+      toast.error("Please enter a valid price range!", toastCharacteristics);
+    } else {
+      axios
+        .patch(`http://localhost:5000/posted-jobs/${_id}`, jobInfo)
+        .then((res) => {
+          if (res.data.modifiedCount) {
+            toast.success("Updated successfully!", toastCharacteristics);
+            form.reset();
+            navigate("/my-posted-jobs");
+          } else {
+            toast.error("Something went wrong!", toastCharacteristics);
+          }
+        });
+    }
   };
 
   return (

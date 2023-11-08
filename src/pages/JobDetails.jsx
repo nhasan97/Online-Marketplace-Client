@@ -8,6 +8,8 @@ import bidImage from "../assets/freelancer_dribbble.png";
 import { MdTitle, MdDescription, MdPriceChange } from "react-icons/md";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useCurrentDate from "../customHooks/UseCurrentDate";
+import dateComparer from "../utilities/dateComparer";
 
 const JobDetails = () => {
   const title1 = "Job Details";
@@ -27,6 +29,9 @@ const JobDetails = () => {
     progress: undefined,
     theme: "dark",
   };
+
+  const today = useCurrentDate();
+  const dateValidity1 = dateComparer(today, loadedJob.deadline);
 
   const handleBidOnProject = (e) => {
     e.preventDefault();
@@ -56,15 +61,27 @@ const JobDetails = () => {
       status: "Pending",
     };
 
-    axios.post("http://localhost:5000/bids", bidInfo).then((res) => {
-      if (res.data.insertedId) {
-        toast.success("Inserted successfully!", toastCharacteristics);
-        form.reset();
-        navigate("/my-bids");
-      } else {
-        toast.error("Something went wrong!", toastCharacteristics);
-      }
-    });
+    const dateValidity2 = dateComparer(today, biddingDeadline);
+    const dateValidity3 = dateComparer(biddingDeadline, deadline);
+
+    if (dateValidity2 === "invalid") {
+      toast.error("Please enter a valid date!", toastCharacteristics);
+    } else if (dateValidity3 === "invalid") {
+      toast.error(
+        "Your bidding deadline is exceeding the buyer's deadline!",
+        toastCharacteristics
+      );
+    } else {
+      axios.post("http://localhost:5000/bids", bidInfo).then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Inserted successfully!", toastCharacteristics);
+          form.reset();
+          navigate("/my-bids");
+        } else {
+          toast.error("Something went wrong!", toastCharacteristics);
+        }
+      });
+    }
   };
   return (
     <div className="max-w-screen-xl mx-auto px-20">
@@ -234,7 +251,8 @@ const JobDetails = () => {
                         className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
                       />
                     </div>
-                    {user?.email === loadedJob.email ? (
+                    {user?.email === loadedJob.email ||
+                    dateValidity1 === "invalid" ? (
                       <button
                         disabled
                         className="btn w-full bg-[#ff5c11dc] text-white font-semibold rounded-full hover:text-[#ff5c11dc]"
