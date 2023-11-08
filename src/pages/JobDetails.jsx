@@ -185,7 +185,8 @@ const JobDetails = () => {
                         name="biddingAmount"
                         placeholder="Price"
                         step="0.01"
-                        min="1"
+                        min={loadedJob.minimumPrice}
+                        max={loadedJob.maximumPrice}
                         required
                         className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
                       />

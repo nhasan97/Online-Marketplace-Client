@@ -10,9 +10,13 @@ import addJobBg from "../assets/Screenshot_2023-11-06_194840-removebg-preview.pn
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
+import useCurrentDate from "../customHooks/UseCurrentDate";
+import dateComparer from "../utilities/dateComparer";
 
 const AddJobs = () => {
   const { user } = useContext(AuthContext);
+  const today = useCurrentDate();
   const navigate = useNavigate();
 
   const toastCharacteristics = {
@@ -49,15 +53,31 @@ const AddJobs = () => {
       maximumPrice,
     };
 
-    axios.post("http://localhost:5000/posted-jobs", jobInfo).then((res) => {
-      if (res.data.insertedId) {
-        toast.success("Inserted successfully!", toastCharacteristics);
-        form.reset();
-        navigate("/my-posted-jobs");
-      } else {
-        toast.error("Something went wrong!", toastCharacteristics);
-      }
-    });
+    const dateValidity = dateComparer(today, deadline);
+
+    if (dateValidity === "invalid") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please enter a valid date!",
+      });
+    } else if (maximumPrice - minimumPrice <= 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please enter a valid price range!",
+      });
+    } else {
+      axios.post("http://localhost:5000/posted-jobs", jobInfo).then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Inserted successfully!", toastCharacteristics);
+          form.reset();
+          navigate("/my-posted-jobs");
+        } else {
+          toast.error("Something went wrong!", toastCharacteristics);
+        }
+      });
+    }
   };
 
   return (
