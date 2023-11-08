@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -45,10 +46,28 @@ const AuthProvider = ({ children }) => {
   //================== Getting current user by using onAuthStateChange ==================
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email; //once set current user will become null thats why we are trying to get the users email before setting the user
+      const loggedUser = { email: userEmail };
       setUser(currentUser);
       setLoading(false);
+      if (currentUser) {
+        axios
+          .post("http://localhost:5000/jwt", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => console.log(res.data));
+      } else {
+        axios
+          .post("http://localhost:5000/logout", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => console.log(res.data));
+      }
     });
-    return () => unSubscribe();
+
+    return () => {
+      unSubscribe();
+    };
   }, []);
 
   //================== LogOut User ==================

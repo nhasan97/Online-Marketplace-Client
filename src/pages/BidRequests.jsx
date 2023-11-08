@@ -28,7 +28,7 @@ const BidRequests = () => {
   const url = `http://localhost:5000/bid-requests?email=${user?.email}`;
 
   useEffect(() => {
-    axios.get(url).then((res) => setBids(res.data));
+    axios.get(url, { withCredentials: true }).then((res) => setBids(res.data));
   }, [url]);
 
   const handleAcceptOrReject = (bidId, stat) => {
