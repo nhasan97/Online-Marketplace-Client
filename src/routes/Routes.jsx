@@ -10,6 +10,7 @@ import Error from "../pages/Error";
 import JobDetails from "../pages/JobDetails";
 import MyBids from "../pages/MyBids";
 import BidRequests from "../pages/BidRequests";
+import CategoricalPopularity from "../pages/CategoricalPopularity";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/popularity",
+        element: <CategoricalPopularity></CategoricalPopularity>,
       },
       {
         path: "/add-jobs",

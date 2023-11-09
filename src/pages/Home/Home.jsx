@@ -1,7 +1,7 @@
 import Banner from "./Banner";
 import BrowseByCategorySection from "./BrowseByCategorySection/BrowseByCategorySection";
 import { Helmet } from "react-helmet-async";
-import ClientRivews from "./ClientRivews";
+import ClientReviews from "./ClientsReviews/ClientReviews";
 const Home = () => {
   return (
     <div>
@@ -12,7 +12,7 @@ const Home = () => {
       <Banner></Banner>
       <div className="max-w-screen-xl mx-auto px-20">
         <BrowseByCategorySection></BrowseByCategorySection>
-        <ClientRivews></ClientRivews>
+        <ClientReviews></ClientReviews>
       </div>
     </div>
   );

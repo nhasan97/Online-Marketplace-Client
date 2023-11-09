@@ -14,11 +14,23 @@ import Swal from "sweetalert2";
 import useCurrentDate from "../customHooks/UseCurrentDate";
 import dateComparer from "../utilities/dateComparer";
 import { Helmet } from "react-helmet-async";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const AddJobs = () => {
   const { user } = useContext(AuthContext);
   const today = useCurrentDate();
   const navigate = useNavigate();
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/categories`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+      });
+  }, []);
 
   const toastCharacteristics = {
     position: "top-center",
@@ -174,9 +186,9 @@ const AddJobs = () => {
                 required
                 className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
               >
-                <option>Web Development</option>
-                <option>Digital Marketing</option>
-                <option>Graphic Design</option>
+                {categories.map((category) => (
+                  <option key={category._id}>{category.category}</option>
+                ))}
               </select>
             </div>
 

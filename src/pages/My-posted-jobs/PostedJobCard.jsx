@@ -222,6 +222,7 @@ const PostedJobCard = ({ job, handlePostedJobDelete }) => {
                   //   placeholder="Description"
                   defaultValue={category}
                   required
+                  readOnly
                   className="input bg-[#e8ebfa] w-full pl-16 rounded-full border focus:border-[#323384b7] focus:outline-none"
                 />
                 {/* <select

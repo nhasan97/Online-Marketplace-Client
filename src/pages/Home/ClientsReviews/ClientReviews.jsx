@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import Title from "../../reusableComponents/Title";
+import Title from "../../../reusableComponents/Title";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import RiviewCard from "./RiviewCard";
+import ReviewCard from "./ReviewCard";
 
-const ClientRivews = () => {
+const ClientReviews = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("clientReviews.json")
+    fetch("https://b8-a11-online-marketplace-server.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -27,12 +27,12 @@ const ClientRivews = () => {
   };
 
   return (
-    <div className="px-10 bg-[#a1dada41] rounded-lg border my-10">
+    <div className="px-10 bg-[#a1dada41] rounded-lg my-10">
       <Title title={title}></Title>
       <div className="py-12">
         <Slider {...settings}>
           {reviews.map((review) => (
-            <RiviewCard key={review.id} review={review}></RiviewCard>
+            <ReviewCard key={review._id} review={review}></ReviewCard>
           ))}
         </Slider>
       </div>
@@ -40,4 +40,4 @@ const ClientRivews = () => {
   );
 };
 
-export default ClientRivews;
+export default ClientReviews;
