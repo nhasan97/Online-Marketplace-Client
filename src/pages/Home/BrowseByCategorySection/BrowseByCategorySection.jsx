@@ -13,7 +13,7 @@ const BrowseByCategorySection = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/categories`)
+    fetch(`https://b8-a11-online-marketplace-server.vercel.app/categories`)
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
