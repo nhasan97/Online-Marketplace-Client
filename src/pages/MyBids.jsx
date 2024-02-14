@@ -1,16 +1,19 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../providers/AuthProvider";
-import axios from "axios";
 import Title from "../reusableComponents/Title";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../hooks/useAuth";
+import useUsersBids from "../hooks/useUsersBids";
+import Loading from "../reusableComponents/Loading";
 
 const MyBids = () => {
   const title = "My bids";
 
-  const { user } = useContext(AuthContext);
-  const [bids, setBids] = useState([]);
+  const { user, loading } = useAuth();
+
+  const [loadingUsersBids, usersBids, refetchUsersBids] = useUsersBids(
+    user.email
+  );
 
   const toastCharacteristics = {
     position: "top-center",
@@ -23,42 +26,34 @@ const MyBids = () => {
     theme: "dark",
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://b8-a11-online-marketplace-server.vercel.app/bids?email=${user?.email}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => setBids(res.data));
-  }, []);
-
   const handleComplete = (bidId, stat) => {
-    fetch(
-      `https://b8-a11-online-marketplace-server.vercel.app/bid-requests/${bidId}`,
-      {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ status: stat }),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount) {
-          toast.success("Updated successfully!", toastCharacteristics);
-          const remaining = bids.filter((bid) => bid._id !== bidId);
-          const updated = bids.find((bid) => bid._id === bidId);
-          updated.status = stat;
-          const newlist = [updated, ...remaining];
-          setBids(newlist);
-        } else {
-          toast.error("Something went wrong!", toastCharacteristics);
-        }
-      });
+    // fetch(
+    //   `https://b8-a11-online-marketplace-server.vercel.app/bid-requests/${bidId}`,
+    //   {
+    //     method: "PATCH",
+    //     headers: { "content-type": "application/json" },
+    //     body: JSON.stringify({ status: stat }),
+    //   }
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.modifiedCount) {
+    //       toast.success("Updated successfully!", toastCharacteristics);
+    //       const remaining = bids.filter((bid) => bid._id !== bidId);
+    //       const updated = bids.find((bid) => bid._id === bidId);
+    //       updated.status = stat;
+    //       const newlist = [updated, ...remaining];
+    //       setBids(newlist);
+    //     } else {
+    //       toast.error("Something went wrong!", toastCharacteristics);
+    //     }
+    //   });
   };
+  if (loading || loadingUsersBids) {
+    return <Loading></Loading>;
+  }
 
-  if (bids.length > 0) {
+  if (usersBids.length > 0) {
     return (
       <div className="max-w-screen-xl mx-auto px-20">
         <Helmet>
@@ -85,7 +80,7 @@ const MyBids = () => {
               <tbody>
                 {/* row  */}
 
-                {bids.map((bid) => (
+                {usersBids.map((bid) => (
                   <tr key={bid._id}>
                     <th className="text-[#ff5c11dc]">{bid.jobTitle}</th>
                     <td>{bid.buyerEmail}</td>
