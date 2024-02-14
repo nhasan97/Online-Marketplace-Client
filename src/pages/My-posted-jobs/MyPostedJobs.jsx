@@ -1,27 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 import PostedJobCard from "./PostedJobCard";
 import Swal from "sweetalert2";
-import axios from "axios";
 import Title from "../../reusableComponents/Title";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../hooks/useAuth";
+import useUsersPostedJobs from "../../hooks/useUsersPostedJobs";
+import Loading from "../../reusableComponents/Loading";
 
 const MyPostedJobs = () => {
-  const { user } = useContext(AuthContext);
-  const [myPostedJobs, setMyPostedJobs] = useState([]);
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    fetch(
-      `https://b8-a11-online-marketplace-server.vercel.app/my-posted-jobs?email=${user?.email}`,
-      {
-        credentials: "include",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setMyPostedJobs(data);
-      });
-  }, []);
+  const [loadingUsersPostedJobs, usersPostedJobs, refetchUsersPostedJobs] =
+    useUsersPostedJobs(user.email);
 
   const handlePostedJobDelete = (id) => {
     Swal.fire({
@@ -34,34 +23,38 @@ const MyPostedJobs = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(
-            `https://b8-a11-online-marketplace-server.vercel.app/posted-jobs/${id}`
-          )
-          .then((res) => {
-            if (res.data.deletedCount) {
-              const newList = myPostedJobs.filter((job) => job._id !== id);
-              setMyPostedJobs(newList);
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success",
-              });
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-              });
-            }
-          });
+        // axios
+        //   .delete(
+        //     `https://b8-a11-online-marketplace-server.vercel.app/posted-jobs/${id}`
+        //   )
+        //   .then((res) => {
+        //     if (res.data.deletedCount) {
+        //       const newList = myPostedJobs.filter((job) => job._id !== id);
+        //       setMyPostedJobs(newList);
+        //       Swal.fire({
+        //         title: "Deleted!",
+        //         text: "Your file has been deleted.",
+        //         icon: "success",
+        //       });
+        //     } else {
+        //       Swal.fire({
+        //         icon: "error",
+        //         title: "Oops...",
+        //         text: "Something went wrong!",
+        //       });
+        //     }
+        //   });
       }
     });
   };
 
   const title = "My Posted Jobs";
 
-  if (myPostedJobs.length > 0) {
+  if (loading || loadingUsersPostedJobs) {
+    return <Loading></Loading>;
+  }
+
+  if (usersPostedJobs.length > 0) {
     return (
       <div className="max-w-screen-xl mx-auto px-20">
         <Helmet>
@@ -72,7 +65,7 @@ const MyPostedJobs = () => {
           <Title title={title}></Title>
 
           <div className="grid grid-cols-3 gap-6 py-10">
-            {myPostedJobs.map((job) => (
+            {usersPostedJobs.map((job) => (
               <PostedJobCard
                 key={job._id}
                 job={job}
