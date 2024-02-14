@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { Link } from "react-router-dom";
-import useCurrentDate from "../../../customHooks/UseCurrentDate";
 import dateComparer from "../../../utilities/dateComparer";
+import useCurrentDate from "../../../hooks/useCurrentDate";
 
 const BrowseByCategoryCard = ({ job }) => {
   const { user } = useContext(AuthContext);

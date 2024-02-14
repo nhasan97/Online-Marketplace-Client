@@ -11,11 +11,11 @@ import addJobBg from "../assets/Screenshot_2023-11-06_194840-removebg-preview.pn
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
-import useCurrentDate from "../customHooks/UseCurrentDate";
 import dateComparer from "../utilities/dateComparer";
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { useEffect } from "react";
+import useCurrentDate from "../hooks/useCurrentDate";
 
 const AddJobs = () => {
   const { user } = useContext(AuthContext);

@@ -8,9 +8,9 @@ import bidImage from "../assets/freelancer_dribbble.png";
 import { MdTitle, MdDescription, MdPriceChange } from "react-icons/md";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useCurrentDate from "../customHooks/UseCurrentDate";
 import dateComparer from "../utilities/dateComparer";
 import { Helmet } from "react-helmet-async";
+import useCurrentDate from "../hooks/useCurrentDate";
 
 const JobDetails = () => {
   const title1 = "Job Details";

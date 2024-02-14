@@ -9,8 +9,8 @@ import { BiSolidCategory } from "react-icons/bi";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useCurrentDate from "../../customHooks/UseCurrentDate";
 import dateComparer from "../../utilities/dateComparer";
+import useCurrentDate from "../../hooks/useCurrentDate";
 
 const PostedJobCard = ({ job, handlePostedJobDelete }) => {
   const {
