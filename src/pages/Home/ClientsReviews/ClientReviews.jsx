@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import ReviewCard from "./ReviewCard";
 import useReviews from "../../../hooks/useReviews";
 import Loading from "../../../reusableComponents/Loading";
+import Nodata from "../../../reusableComponents/Nodata";
 
 const ClientReviews = () => {
   const [loadingReviews, fetchedReviews] = useReviews();
@@ -35,6 +36,8 @@ const ClientReviews = () => {
         </div>
       </div>
     );
+  } else {
+    return <Nodata text={"No Bid Reviews Found"}></Nodata>;
   }
 };
 
