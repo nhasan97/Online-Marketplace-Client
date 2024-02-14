@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
 import useUsersPostedJobs from "../../hooks/useUsersPostedJobs";
 import Loading from "../../reusableComponents/Loading";
+import Nodata from "../../reusableComponents/Nodata";
 
 const MyPostedJobs = () => {
   const { user, loading } = useAuth();
@@ -77,13 +78,7 @@ const MyPostedJobs = () => {
       </div>
     );
   } else {
-    return (
-      <div className="max-w-screen-xl mx-auto px-20">
-        <div className="w-full h-screen flex flex-col justify-center items-center p-10 mt-16">
-          <h1 className="text-6xl font-semibold">No Posted Jobs Found</h1>
-        </div>
-      </div>
-    );
+    return <Nodata text={"No Posted Jobs Found"}></Nodata>;
   }
 };
 

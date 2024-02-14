@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../hooks/useAuth";
 import useUsersBids from "../hooks/useUsersBids";
 import Loading from "../reusableComponents/Loading";
+import Nodata from "../reusableComponents/Nodata";
 
 const MyBids = () => {
   const title = "My bids";
@@ -107,13 +108,7 @@ const MyBids = () => {
       </div>
     );
   } else {
-    return (
-      <div className="max-w-screen-xl mx-auto px-20">
-        <div className="w-full h-screen flex flex-col justify-center items-center p-10 mt-16">
-          <h1 className="text-6xl font-semibold">No Bids Found</h1>
-        </div>
-      </div>
-    );
+    return <Nodata text={"No Bids Found"}></Nodata>;
   }
 };
 
