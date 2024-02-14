@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import app from "../firebase/firebase.config";
-import axios from "axios";
+import axiosSecure from "../api/axiosSecure";
 
 export const AuthContext = createContext();
 
@@ -43,33 +43,23 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
-  //================== Getting current user by using onAuthStateChange ==================
+  //==================== Getting current logged in user ====================
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       const userEmail = currentUser?.email || user?.email; //once set current user will become null thats why we are trying to get the users email before setting the user
       const loggedUser = { email: userEmail };
       setUser(currentUser);
-      setLoading(false);
+
       if (currentUser) {
-        axios
-          .post(
-            "https://b8-a11-online-marketplace-server.vercel.app/jwt",
-            loggedUser,
-            {
-              withCredentials: true,
-            }
-          )
+        axiosSecure
+          .post("/jwt", loggedUser)
           .then((res) => console.log(res.data));
+        setLoading(false);
       } else {
-        axios
-          .post(
-            "https://b8-a11-online-marketplace-server.vercel.app/logout",
-            loggedUser,
-            {
-              withCredentials: true,
-            }
-          )
+        axiosSecure
+          .post("/logout", loggedUser)
           .then((res) => console.log(res.data));
+        setLoading(false);
       }
     });
 

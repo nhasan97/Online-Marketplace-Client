@@ -2,17 +2,14 @@ import { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import PropTypes from "prop-types";
+import Loading from "../reusableComponents/Loading";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
 
   if (loading) {
-    return (
-      <div className="w-full h-screen flex justify-center items-center">
-        <span className="loading loading-infinity w-[300px] text-red-500"></span>
-      </div>
-    );
+    return <Loading></Loading>;
   }
 
   if (user?.email) {
