@@ -12,7 +12,7 @@ const MyBids = () => {
   const { user, loading } = useAuth();
 
   const [loadingUsersBids, usersBids, refetchUsersBids] = useUsersBids(
-    user.email
+    user?.email
   );
 
   const toastCharacteristics = {

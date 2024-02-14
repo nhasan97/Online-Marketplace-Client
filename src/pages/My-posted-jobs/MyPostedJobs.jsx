@@ -10,7 +10,7 @@ const MyPostedJobs = () => {
   const { user, loading } = useAuth();
 
   const [loadingUsersPostedJobs, usersPostedJobs, refetchUsersPostedJobs] =
-    useUsersPostedJobs(user.email);
+    useUsersPostedJobs(user?.email);
 
   const handlePostedJobDelete = (id) => {
     Swal.fire({
