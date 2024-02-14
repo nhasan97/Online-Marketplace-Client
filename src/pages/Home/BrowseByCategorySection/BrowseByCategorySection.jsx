@@ -13,15 +13,11 @@ const BrowseByCategorySection = () => {
 
   const [tabIndex, setTabIndex] = useState(0);
 
-  // const [categories, setCategories] = useState([]);
   const [webDevelopmentJobs, setWebDevelopmentJobs] = useState([]);
   const [digitalMarketingJobs, setDigitalMarketingJobs] = useState([]);
   const [graphicDesignJobs, setGraphicDesignJobs] = useState([]);
 
-  // const [postedJobs, setPostedJobs] = useState([]);
-
-  const [loadingCategories, fetchedCategories, refetchCategories] =
-    useCategories();
+  const [loadingCategories, fetchedCategories] = useCategories();
 
   const [
     loadingPostedJobs,
@@ -29,38 +25,13 @@ const BrowseByCategorySection = () => {
     filteredWebDevelopmentJobs,
     filteredDigitalMarketingJobs,
     filteredGraphicDesignJobs,
-    refetchPostedJobs,
   ] = usePostedJobs();
-
-  // useEffect(() => {
-  //   setCategories(fetchedCategories);
-  // }, []);
 
   useEffect(() => {
     setWebDevelopmentJobs(filteredWebDevelopmentJobs);
     setDigitalMarketingJobs(filteredDigitalMarketingJobs);
     setGraphicDesignJobs(filteredGraphicDesignJobs);
   }, [fetchedPostedJobs]);
-
-  // useEffect(() => {
-  //   if (postedJobs.length > 0) {
-  //     const joblist1 = [];
-  //     const joblist2 = [];
-  //     const joblist3 = [];
-  //     for (let job of postedJobs) {
-  //       if (job.category === "Web Development") {
-  //         joblist1.push(job);
-  //       } else if (job.category === "Digital Marketing") {
-  //         joblist2.push(job);
-  //       } else {
-  //         joblist3.push(job);
-  //       }
-  //     }
-  //     setWebDevelopmentJobs(joblist1);
-  //     setDigitalMarketingJobs(joblist2);
-  //     setGraphicDesignJobs(joblist3);
-  //   }
-  // }, [postedJobs]);
 
   if (loadingCategories || loadingPostedJobs) {
     return <Loading></Loading>;
