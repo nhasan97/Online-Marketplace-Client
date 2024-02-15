@@ -23,9 +23,10 @@ const AddJobs = () => {
   //fetching categories from DB
   const [loadingCategories, fetchedCategories] = useCategories();
 
-  //saving job in db
+  //creating mutation
   const mutation = usePerformMutation("saveJobInDB", saveJobInDB, "");
 
+  //saving job in db
   const handlePostJob = (e) => {
     e.preventDefault();
     const form = e.target;
