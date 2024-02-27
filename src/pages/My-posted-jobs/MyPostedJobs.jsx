@@ -6,6 +6,12 @@ import useAuth from "../../hooks/useAuth";
 import useUsersPostedJobs from "../../hooks/useUsersPostedJobs";
 import Loading from "../../reusableComponents/Loading";
 import Nodata from "../../reusableComponents/Nodata";
+import useCategories from "../../hooks/useCategories";
+import usePerformMutation from "../../hooks/usePerformMutation";
+import { deletePostedJob, updatePostedJob } from "../../api/jobAPIs";
+import dateComparer from "../../utilities/dateComparer";
+import useCurrentDate from "../../hooks/useCurrentDate";
+import { showToastOnError } from "../../utilities/displayToast";
 
 const MyPostedJobs = () => {
   const { user, loading } = useAuth();
@@ -13,7 +19,54 @@ const MyPostedJobs = () => {
   const [loadingUsersPostedJobs, usersPostedJobs, refetchUsersPostedJobs] =
     useUsersPostedJobs(user?.email);
 
-  const handlePostedJobDelete = (id) => {
+  //fetching categories from DB
+  const [loadingCategories, fetchedCategories] = useCategories();
+
+  const today = useCurrentDate();
+
+  //creating mutation for deleting job
+  const mutation1 = usePerformMutation("updatePostedJob", updatePostedJob, "");
+
+  //updating posted job in db
+  const handleUpdatePostedJob = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const _id = form.jobID.value || "Not Found";
+    const email = form.email.value || "Not Found";
+    const jobTitle = form.jobTitle.value || "Not Found";
+    const deadline = form.deadline.value || "Not Found";
+    const description = form.description.value || "Not Found";
+    const category = form.category.value || "Not Found";
+    const minimumPrice = form.minimumPrice.value || "Not Found";
+    const maximumPrice = form.maximumPrice.value || "Not Found";
+
+    const dateValidity = dateComparer(today, deadline);
+
+    if (dateValidity === "invalid") {
+      showToastOnError("Please enter a valid date!");
+    } else if (maximumPrice - minimumPrice <= 0) {
+      showToastOnError("Please enter a valid price range!");
+    } else {
+      const updatedJobInfo = {
+        email,
+        jobTitle,
+        deadline,
+        description,
+        category,
+        minimumPrice,
+        maximumPrice,
+      };
+      mutation1.mutate({ _id, updatedJobInfo });
+      refetchUsersPostedJobs();
+      form.reset();
+    }
+  };
+
+  //creating mutation for deleting job
+  const mutation2 = usePerformMutation("deletePostedJob", deletePostedJob, "");
+
+  //deleting posted job from db
+  const handlePostedJobDelete = (_id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -24,34 +77,15 @@ const MyPostedJobs = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // axios
-        //   .delete(
-        //     `https://b8-a11-online-marketplace-server.vercel.app/posted-jobs/${id}`
-        //   )
-        //   .then((res) => {
-        //     if (res.data.deletedCount) {
-        //       const newList = myPostedJobs.filter((job) => job._id !== id);
-        //       setMyPostedJobs(newList);
-        //       Swal.fire({
-        //         title: "Deleted!",
-        //         text: "Your file has been deleted.",
-        //         icon: "success",
-        //       });
-        //     } else {
-        //       Swal.fire({
-        //         icon: "error",
-        //         title: "Oops...",
-        //         text: "Something went wrong!",
-        //       });
-        //     }
-        //   });
+        mutation2.mutate({ _id });
+        refetchUsersPostedJobs();
       }
     });
   };
 
   const title = "My Posted Jobs";
 
-  if (loading || loadingUsersPostedJobs) {
+  if (loading || loadingUsersPostedJobs || loadingCategories) {
     return <Loading></Loading>;
   }
 
@@ -70,6 +104,8 @@ const MyPostedJobs = () => {
               <PostedJobCard
                 key={job._id}
                 job={job}
+                categories={fetchedCategories}
+                handleUpdatePostedJob={handleUpdatePostedJob}
                 handlePostedJobDelete={handlePostedJobDelete}
               ></PostedJobCard>
             ))}

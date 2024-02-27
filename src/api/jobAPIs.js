@@ -26,3 +26,29 @@ export const saveJobInDB = async (data) => {
 
   return response.data;
 };
+
+export const updatePostedJob = async (obj) => {
+  const response = await axiosPublic.patch(
+    `/posted-jobs/${obj._id}`,
+    obj.updatedJobInfo
+  );
+
+  if (response.data.modifiedCount) {
+    showToastOnSuccess("Updated successfully!");
+  } else {
+    showToastOnError("Something went wrong!");
+  }
+
+  return response.data;
+};
+
+export const deletePostedJob = async (_id) => {
+  const response = await axiosPublic.delete(`/posted-jobs/${_id._id}`);
+
+  if (response.data.deletedCount) {
+    showToastOnSuccess("Deleted!");
+  } else {
+    showToastOnError("Something went wrong!");
+  }
+  return response.data;
+};
