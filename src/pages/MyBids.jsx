@@ -1,11 +1,12 @@
 import Title from "../reusableComponents/Title";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../hooks/useAuth";
 import useUsersBids from "../hooks/useUsersBids";
 import Loading from "../reusableComponents/Loading";
 import Nodata from "../reusableComponents/Nodata";
+import usePerformMutation from "../hooks/usePerformMutation";
+import { updateParticularBid } from "../api/bidAPIs";
 
 const MyBids = () => {
   const title = "My bids";
@@ -16,40 +17,20 @@ const MyBids = () => {
     user?.email
   );
 
-  const toastCharacteristics = {
-    position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
+  //creating mutation for updating job status
+  const mutation = usePerformMutation(
+    "updateParticularBid",
+    updateParticularBid,
+    ""
+  );
+
+  //updating job status in db
+  const handleComplete = (bidId, stat) => {
+    const updatedJobStatus = { status: stat };
+    mutation.mutate({ bidId, updatedJobStatus });
+    refetchUsersBids();
   };
 
-  const handleComplete = (bidId, stat) => {
-    // fetch(
-    //   `https://b8-a11-online-marketplace-server.vercel.app/bid-requests/${bidId}`,
-    //   {
-    //     method: "PATCH",
-    //     headers: { "content-type": "application/json" },
-    //     body: JSON.stringify({ status: stat }),
-    //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.modifiedCount) {
-    //       toast.success("Updated successfully!", toastCharacteristics);
-    //       const remaining = bids.filter((bid) => bid._id !== bidId);
-    //       const updated = bids.find((bid) => bid._id === bidId);
-    //       updated.status = stat;
-    //       const newlist = [updated, ...remaining];
-    //       setBids(newlist);
-    //     } else {
-    //       toast.error("Something went wrong!", toastCharacteristics);
-    //     }
-    //   });
-  };
   if (loading || loadingUsersBids) {
     return <Loading></Loading>;
   }
