@@ -15,6 +15,11 @@ export const getUsersPostedJobs = async (email) => {
   return response.data;
 };
 
+export const getSingleJobData = async (_id) => {
+  const response = await axiosPublic.get(`/jobs/${_id.id}`);
+  return response.data;
+};
+
 export const saveJobInDB = async (data) => {
   const response = await axiosPublic.post("/posted-jobs", data);
 

@@ -7,10 +7,10 @@ import AddJobs from "../pages/AddJobs";
 import MyPostedJobs from "../pages/My-posted-jobs/MyPostedJobs";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../pages/Error";
-import JobDetails from "../pages/JobDetails";
 import MyBids from "../pages/MyBids";
 import BidRequests from "../pages/BidRequests";
 import CategoricalPopularity from "../pages/CategoricalPopularity";
+import JobDetailsAndBidPlacement from "../pages/JobDetailsAndBidPlacement/JobDetailsAndBidPlacement";
 
 const router = createBrowserRouter([
   {
@@ -46,13 +46,9 @@ const router = createBrowserRouter([
         path: "/job-details/:id",
         element: (
           <PrivateRoute>
-            <JobDetails></JobDetails>
+            <JobDetailsAndBidPlacement></JobDetailsAndBidPlacement>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(
-            `https://b8-a11-online-marketplace-server.vercel.app/jobs/${params.id}`
-          ),
       },
       {
         path: "/my-bids",
