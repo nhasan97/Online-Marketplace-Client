@@ -66,15 +66,15 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/register",
-        element: <Registration></Registration>,
-      },
-      {
-        path: "/login",
-        element: <Login></Login>,
-      },
     ],
+  },
+  {
+    path: "/register",
+    element: <Registration></Registration>,
+  },
+  {
+    path: "/login",
+    element: <Login></Login>,
   },
 ]);
 

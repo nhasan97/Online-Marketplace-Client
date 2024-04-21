@@ -1,28 +1,32 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import regBg from "../assets/Sign up-amico.png";
 
 import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../providers/AuthProvider";
+import { showToastOnSuccess } from "../utilities/displayToast";
+import { uploadImage } from "../utilities/imageUploader";
+import { saveUserData } from "../api/authAPIs";
 
 const Registration = () => {
   const [showPass, setShowPass] = useState(false);
   const [signUpError, setSignUpError] = useState("");
 
   const { registerWithEmailPassword } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   //================== Register using Email and Password ==================
-  const handleRegisterWithEmailAndPassword = (e) => {
+  const handleRegisterWithEmailAndPassword = async (e) => {
     e.preventDefault();
 
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.pass.value;
-    const photoUrl = form.photo.value;
+    const photo = form.photo.files[0];
+    const role = form.role.value;
 
     setSignUpError("");
 
@@ -33,32 +37,38 @@ const Registration = () => {
     } else if (/[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/.test(password) === false) {
       setSignUpError("Password must have at least 1 special character!");
     } else {
-      registerWithEmailPassword(email, password)
-        .then((result) => {
-          const user = result.user;
-          updateProfile(user, {
-            displayName: name,
-            photoURL: photoUrl,
-          })
-            .then(() => {
-              toast.success("Account created Successfully!", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-              });
+      try {
+        let photoUrl = "";
 
-              form.reset();
+        if (photo) {
+          const imageData = await uploadImage(photo);
+          photoUrl = imageData?.data?.display_url;
+        } else {
+          photoUrl = "https://i.ibb.co/tB5R1JC/user.png";
+        }
+
+        registerWithEmailPassword(email, password)
+          .then((result) => {
+            const user = result.user;
+            updateProfile(user, {
+              displayName: name,
+              photoURL: photoUrl,
             })
-            .catch((err) => setSignUpError(err.code + "---" + err.message));
-        })
-        .catch((err) => {
-          setSignUpError(err.code + "---" + err.message);
-        });
+              .then(async () => {
+                const dbResponse = await saveUserData(result?.user, role);
+                console.log(dbResponse);
+                showToastOnSuccess("Account created Successfully!");
+                form.reset();
+                navigate("/");
+              })
+              .catch((err) => setSignUpError(err.code + "---" + err.message));
+          })
+          .catch((err) => {
+            setSignUpError(err.code + "---" + err.message);
+          });
+      } catch (err) {
+        setSignUpError(err.code + "---" + err.message);
+      }
     }
   };
 
@@ -76,7 +86,7 @@ const Registration = () => {
 
             <div className="relative">
               <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#7DDDD9] rounded-s-full">
-                <i className="fa-solid fa-envelope text-xl text-white"></i>
+                <i className="fa-solid fa-signature text-xl text-white"></i>
               </div>
               <input
                 type="text"
@@ -126,17 +136,61 @@ const Registration = () => {
               </span>
             </div>
 
-            <div className="relative">
-              <div className="h-[48px] w-[48px] flex justify-center items-center absolute top-0 left-0 bg-[#7DDDD9] rounded-s-full">
-                <i className="fa-solid fa-envelope text-xl text-white"></i>
+            <fieldset className="w-full p-1 space-y-2 border rounded-lg">
+              <legend className="text-[#8b8b8b] text-base">
+                Choose your role
+              </legend>
+
+              <div className="w-full flex">
+                <div className="flex-1 flex items-center text-base">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="freelancer"
+                    required
+                    className="radio radio-primary"
+                  />
+                  <label htmlFor="rad2" className="ml-3">
+                    Freelancer
+                  </label>
+                </div>
+                <div className="flex-1 flex items-center text-base">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="buyer"
+                    required
+                    className="radio radio-primary"
+                  />
+                  <label htmlFor="rad1" className="ml-3">
+                    Buyer
+                  </label>
+                </div>
+                <div className="flex-1 flex items-center text-base">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="both"
+                    required
+                    className="radio radio-primary"
+                  />
+                  <label htmlFor="rad2" className="ml-3">
+                    Both
+                  </label>
+                </div>
               </div>
+            </fieldset>
+
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text text-base">
+                  Pick your profile picture
+                </span>
+              </label>
               <input
-                type="text"
-                id="in4"
+                type="file"
                 name="photo"
-                placeholder="Photo Url"
-                // required
-                className="input bg-[#a1dada41] w-full pl-16 rounded-full border focus:border-[#7DDDD9] focus:outline-none"
+                className="file-input file-input-bordered w-full"
               />
             </div>
 
@@ -172,7 +226,6 @@ const Registration = () => {
         <div className="w-[40%] flex justify-center items-center">
           <img src={regBg} alt="" className="w-full" />
         </div>
-        <ToastContainer />
       </div>
     </div>
   );
