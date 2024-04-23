@@ -1,20 +1,24 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import regBg from "../assets/Sign up-amico.png";
+import { BiLogoGoogle } from "react-icons/bi";
 
-import { updateProfile } from "firebase/auth";
-import { AuthContext } from "../providers/AuthProvider";
-import { showToastOnSuccess } from "../utilities/displayToast";
+import { GoogleAuthProvider, updateProfile } from "firebase/auth";
+import {
+  showToastOnError,
+  showToastOnSuccess,
+} from "../utilities/displayToast";
 import { uploadImage } from "../utilities/imageUploader";
 import { saveUserData } from "../api/authAPIs";
+import useAuth from "../hooks/useAuth";
 
 const Registration = () => {
   const [showPass, setShowPass] = useState(false);
   const [signUpError, setSignUpError] = useState("");
 
-  const { registerWithEmailPassword } = useContext(AuthContext);
+  const { registerWithEmailPassword, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   //================== Register using Email and Password ==================
@@ -72,9 +76,32 @@ const Registration = () => {
     }
   };
 
+  //================== Register using Google ==================
+  const handleRegistrationWithGoogle = (e) => {
+    e.preventDefault();
+    console.log(e.target.role.value);
+
+    const provider = new GoogleAuthProvider();
+
+    loginWithGoogle(provider)
+      .then(async (result) => {
+        if (result?.user?.email) {
+          const dbResponse = await saveUserData(
+            result?.user,
+            e.target.role.value
+          );
+          console.log(dbResponse);
+          navigate(location?.state ? location.state : "/");
+        }
+      })
+      .catch((err) => {
+        showToastOnError(err.code + "---" + err.message);
+      });
+  };
+
   return (
     <div className="max-w-screen-xl mx-auto px-20">
-      <div className="w-full h-screen flex justify-center items-center mt-16 bg-[url('../public/logbg1.jpg')] bg-contain bg-no-repeat bg-right">
+      <div className="w-full h-screen flex justify-center items-center bg-[url('../public/logbg1.jpg')] bg-contain bg-no-repeat bg-right">
         <div className="w-[60%] flex flex-col justify-center items-center px-10 pb-5 border rounded-lg">
           <form
             className="w-full flex flex-col gap-4 text-left"
@@ -136,6 +163,19 @@ const Registration = () => {
               </span>
             </div>
 
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text text-base">
+                  Pick your profile picture (optional)
+                </span>
+              </label>
+              <input
+                type="file"
+                name="photo"
+                className="file-input file-input-bordered w-full"
+              />
+            </div>
+
             <fieldset className="w-full p-1 space-y-2 border rounded-lg">
               <legend className="text-[#8b8b8b] text-base">
                 Choose your role
@@ -181,19 +221,6 @@ const Registration = () => {
               </div>
             </fieldset>
 
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text text-base">
-                  Pick your profile picture
-                </span>
-              </label>
-              <input
-                type="file"
-                name="photo"
-                className="file-input file-input-bordered w-full"
-              />
-            </div>
-
             {/* <div className="w-full flex gap-4 justify-start items-center">
             <input
               type="checkbox"
@@ -216,16 +243,85 @@ const Registration = () => {
               className="btn w-1/2 mx-auto bg-[#323484] text-lg font-medium text-white hover:text-[#323484] normal-case rounded-full"
             />
           </form>
-          <p className="my-6 text-center font-medium">
+          <p className="my-3 text-center font-medium">
             Already have an account?
             <Link className="ml-3 text-[#ff5c11dc]" to="/login">
               Sign In
             </Link>
           </p>
+
+          <p className="text-sm sm:text-lg font-medium my-3">Or sign up with</p>
+
+          <BiLogoGoogle
+            className="btn w-1/2 mx-auto bg-[#FE7E51] text-sm sm:text-lg font-medium text-white hover:text-[#FE7E51] normal-case rounded-lg"
+            onClick={() => document.getElementById("my_modal_1").showModal()}
+          ></BiLogoGoogle>
+
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box">
+              <form onSubmit={handleRegistrationWithGoogle}>
+                <fieldset className="w-full p-2 space-y-2 border rounded-lg">
+                  <legend className="text-[#8b8b8b] text-base">
+                    Choose your role
+                  </legend>
+
+                  <div className="w-full flex">
+                    <div className="flex-1 flex items-center text-base">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="freelancer"
+                        required
+                        className="radio radio-primary"
+                      />
+                      <label htmlFor="rad2" className="ml-3">
+                        Freelancer
+                      </label>
+                    </div>
+                    <div className="flex-1 flex items-center text-base">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="buyer"
+                        required
+                        className="radio radio-primary"
+                      />
+                      <label htmlFor="rad1" className="ml-3">
+                        Buyer
+                      </label>
+                    </div>
+                    <div className="flex-1 flex items-center text-base">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="both"
+                        required
+                        className="radio radio-primary"
+                      />
+                      <label htmlFor="rad2" className="ml-3">
+                        Both
+                      </label>
+                    </div>
+                  </div>
+
+                  <input
+                    type="submit"
+                    value="Sign Up with Google"
+                    className="btn w-1/2 mx-auto bg-[#FE7E51] text-lg font-medium text-white hover:text-[#FE7E51] normal-case rounded-lg"
+                  />
+                </fieldset>
+              </form>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
-        <div className="w-[40%] flex justify-center items-center">
-          <img src={regBg} alt="" className="w-full" />
-        </div>
+        {/*<div className="w-[40%] flex justify-center items-center">
+           <img src={regBg} alt="" className="w-full" /> 
+        </div>*/}
       </div>
     </div>
   );
